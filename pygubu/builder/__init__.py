@@ -332,7 +332,7 @@ class Builder(object):
         and all its children. Use *master* as parent."""
         self.objects.clear()
         self.get_object(name, master)
-        return self.objects.copy()
+        return {k:v.widget for k,v in self.objects.items()}
 
     def _import_class(self, modulename):
         if modulename.startswith('ttk.'):
