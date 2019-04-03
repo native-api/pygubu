@@ -325,6 +325,13 @@ class Builder(object):
             raise Exception(msg)
         return widget
 
+    def get_objects(self, name, master=None):
+        """Return a dict of {id:widget} for widget *name*
+        and all its children. Use *master* as parent."""
+        self.objects.clear()
+        self.get_object(name, master)
+        return self.objects.copy()
+
     def _import_class(self, modulename):
         if modulename.startswith('ttk.'):
             importlib.import_module('pygubu.builder.ttkstdwidgets')
