@@ -309,19 +309,17 @@ class Builder(object):
 
     def get_object(self, name, master=None):
         """Find and create the widget named name.
-        Use master as parent. If widget was already created, return
-        that instance."""
+        Use master as parent."""
         widget = None
-        if name in self.objects:
-            widget = self.objects[name].widget
-        else:
-            xpath = ".//object[@id='{0}']".format(name)
-            node = self.tree.find(xpath)
-            if node is not None:
-                root = BuilderObject(self, dict())
-                root.widget = master
-                bobject = self._realize(root, node)
-                widget = bobject.widget
+
+        xpath = ".//object[@id='{0}']".format(name)
+        node = self.tree.find(xpath)
+        if node is not None:
+            root = BuilderObject(self, dict())
+            root.widget = master
+            bobject = self._realize(root, node)
+            widget = bobject.widget
+
         if widget is None:
             msg = 'Widget "{0}" not defined.'.format(name)
             raise Exception(msg)
